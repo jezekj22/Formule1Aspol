@@ -10,7 +10,9 @@ rozmer_y = 50
 rozmer_x = 50
 pozice_x = 500
 pozice_y = 600
-rychlost = 1
+rychlost = 3
+zrychleni = 1
+povoleni = True
 #--------------------- OKNO
 okno = pygame.display.set_mode(ROZLISENI)
 pygame.display.set_caption('Formule1')
@@ -29,10 +31,6 @@ while True:
     okno.blit(textura,(pozice_x, pozice_y))
     pygame.display.update()
 #------------------------------ POHYB
-    accleration_key = klavesnice[pygame.K_LEFT] or klavesnice[pygame.K_RIGHT] or klavesnice[pygame.K_UP] or klavesnice[pygame.K_DOWN]
-    accleration_key_Nitro_Left_Right = klavesnice[pygame.K_UP] or klavesnice[pygame.K_DOWN]
-    accleration_key_Nitro_Up_Down = klavesnice[pygame.K_RIGHT] or klavesnice[pygame.K_LEFT]
-    
     klavesnice = pygame.key.get_pressed()
     if klavesnice[pygame.K_LEFT]:
         pozice_x -= rychlost
@@ -42,28 +40,13 @@ while True:
         pozice_y -= rychlost
     if klavesnice[pygame.K_DOWN]:
         pozice_y += rychlost
-#------------------------------ NITRO LEFT RIGHT
-    if klavesnice[pygame.K_LSHIFT] and accleration_key:
-        if rychlost <= 3:
-            rychlost = rychlost + 0.1 
-    else:
-            if rychlost >= 1:
-                rychlost = rychlost - 0.1
-    
-    if klavesnice[pygame.K_LSHIFT] and accleration_key and accleration_key_Nitro_Left_Right:
-        if rychlost > 1:
-            rychlost = rychlost - 0.1
-    else:
-            if rychlost <= 1:
-                rychlost = rychlost + 0.1
-    
-    if klavesnice[pygame.K_LSHIFT] and accleration_key_Nitro_Left_Right and accleration_key:
-        if rychlost > 1:
-            rychlost = rychlost - 0.1
-    else:
-            if rychlost <= 1:
-                rychlost = rychlost + 0.1
-#------------------------------ NITRO UP DOWN
+#------------------------------ NITRO
+    if klavesnice[pygame.K_LSHIFT] and rychlost<3:
+        rychlost+= zrychleni
+    elif klavesnice[pygame.K_LSHIFT] == False:
+        rychlost = 1
+    if klavesnice[pygame.K_LEFT] and klavesnice[pygame.K_UP] == True or klavesnice[pygame.K_UP] and klavesnice[pygame.K_RIGHT] == True or klavesnice[pygame.K_LEFT] and klavesnice[pygame.K_DOWN] == True or klavesnice[pygame.K_DOWN] and klavesnice[pygame.K_RIGHT] == True:
+        rychlost = 1
 
 #------------------------------ BORDER
     if pozice_x < 0:
