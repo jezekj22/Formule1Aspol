@@ -11,7 +11,6 @@ rozmer_x = 50
 pozice_x = 500
 pozice_y = 600
 rychlost = 1
-rychlost2 = 3
 #--------------------- OKNO
 okno = pygame.display.set_mode(ROZLISENI)
 pygame.display.set_caption('Formule1')
@@ -39,15 +38,39 @@ while True:
         pozice_y -= rychlost
     if klavesnice[pygame.K_DOWN]:
         pozice_y += rychlost
-#------------------------------ NITRO    
+#------------------------------ NITRO   
     if klavesnice[pygame.K_LSHIFT] and klavesnice[pygame.K_LEFT]:
         if rychlost <= 3:
-            rychlost = rychlost + 0.01
+            rychlost = rychlost + 0.1 
     else:
-        if klavesnice[pygame.K_LSHIFT] and klavesnice[pygame.K_LEFT] and klavesnice[pygame.K_UP]:
             if rychlost >= 1:
-                rychlost = rychlost - 0.01
+                rychlost = rychlost - 0.1
     
+    if klavesnice[pygame.K_LSHIFT] and klavesnice[pygame.K_LEFT] and klavesnice[pygame.K_DOWN] or klavesnice[pygame.K_UP]:
+        if rychlost > 1:
+            rychlost = rychlost - 0.1
+    else:
+            if rychlost < 1:
+                rychlost = rychlost + 0.1
+    
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #------------------------------ BORDER
     if pozice_x < 0:
         pozice_x = 0
@@ -57,6 +80,7 @@ while True:
         pozice_x = ROZLISENI_X - rozmer_x
     if pozice_y > ROZLISENI_Y - rozmer_y:
         pozice_y = ROZLISENI_Y - rozmer_y
+#------------------------------ ROTACE
     
     
     
