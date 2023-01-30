@@ -29,6 +29,10 @@ while True:
     okno.blit(textura,(pozice_x, pozice_y))
     pygame.display.update()
 #------------------------------ POHYB
+    accleration_key = klavesnice[pygame.K_LEFT] or klavesnice[pygame.K_RIGHT] or klavesnice[pygame.K_UP] or klavesnice[pygame.K_DOWN]
+    accleration_key_Nitro_Left_Right = klavesnice[pygame.K_UP] or klavesnice[pygame.K_DOWN]
+    accleration_key_Nitro_Up_Down = klavesnice[pygame.K_RIGHT] or klavesnice[pygame.K_LEFT]
+    
     klavesnice = pygame.key.get_pressed()
     if klavesnice[pygame.K_LEFT]:
         pozice_x -= rychlost
@@ -38,38 +42,28 @@ while True:
         pozice_y -= rychlost
     if klavesnice[pygame.K_DOWN]:
         pozice_y += rychlost
-#------------------------------ NITRO   
-    if klavesnice[pygame.K_LSHIFT] and klavesnice[pygame.K_LEFT]:
+#------------------------------ NITRO LEFT RIGHT
+    if klavesnice[pygame.K_LSHIFT] and accleration_key:
         if rychlost <= 3:
             rychlost = rychlost + 0.1 
     else:
             if rychlost >= 1:
                 rychlost = rychlost - 0.1
     
-    if klavesnice[pygame.K_LSHIFT] and klavesnice[pygame.K_LEFT] and klavesnice[pygame.K_DOWN] or klavesnice[pygame.K_UP]:
+    if klavesnice[pygame.K_LSHIFT] and accleration_key and accleration_key_Nitro_Left_Right:
         if rychlost > 1:
             rychlost = rychlost - 0.1
     else:
-            if rychlost < 1:
+            if rychlost <= 1:
                 rychlost = rychlost + 0.1
     
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if klavesnice[pygame.K_LSHIFT] and accleration_key_Nitro_Left_Right and accleration_key:
+        if rychlost > 1:
+            rychlost = rychlost - 0.1
+    else:
+            if rychlost <= 1:
+                rychlost = rychlost + 0.1
+#------------------------------ NITRO UP DOWN
 
 #------------------------------ BORDER
     if pozice_x < 0:
